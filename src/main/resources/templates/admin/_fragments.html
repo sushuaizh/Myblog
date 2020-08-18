@@ -60,25 +60,28 @@
                     </div>
                     <div class="three wide column">
                         <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                        <div class="ui inverted link list">
-                            <a href="#" class="item">用户故事（user story）</a>
-                            <a href="#" class="item">用户故事（user story）</a>
-                            <a href="#" class="item">用户故事（user story）</a>
-
+                        <div id="newBlog-container">
+                            <div class="ui inverted link list" th:fragment="newBlogList">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（user story）</a>
+                                <!--                            /*-->
+                                <a href="#" class="item">用户故事（user story）</a>
+                                <a href="#" class="item">用户故事（user story）</a>
+                                <!--                        */-->
+                            </div>
                         </div>
+
                     </div>
                     <div class="three wide column">
-                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
                         <div class="ui inverted link list">
-                            <a href="#" class="item">用户故事（user story）</a>
-                            <a href="#" class="item">用户故事（user story）</a>
-                            <a href="#" class="item">用户故事（user story）</a>
+                            <a href="#" class="item" th:text="#{index.email}">Email:1768428269@qq.com</a>
+                            <a href="#" class="item">QQ:1768428269</a>
 
                         </div>
                     </div>
                     <div class="seven wide column">
-                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
-                        <p class="m-text-thin m-text-spaced m-opacity-tiny">子啊都感觉啊打法来得及改的 大家发的</p>
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
+                        <p class="m-text-thin m-text-spaced m-opacity-tiny">欢迎大家来到我的博客，请大家多多留言分享</p>
                     </div>
                 </div>
             </div>
@@ -106,6 +109,9 @@
     <script src="/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script src="/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <script th:src="@{/lib/editored/editored.min.js}"> </script>
+    <script>
+        $('#newBlog-container').load(/*[[@{/footer/newBlog}]]*/"/footer/newBlog");
+    </script>
 </th:block>
 
 

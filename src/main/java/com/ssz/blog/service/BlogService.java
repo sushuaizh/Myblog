@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author sushuaizhen
@@ -23,7 +24,13 @@ public interface BlogService {
 
     Page<Blog>  listBlog(Pageable pageable);
 
+    Page<Blog>  listBlog(Long tagId,Pageable pageable);
+
     Page<Blog>  listSearchBlog(String query, Pageable pageable);
+
+    Map<String,List<Blog>> archiveBlog();
+
+    Long countBlog();
 
     Blog saveBlog(Blog blog);
 
@@ -32,5 +39,7 @@ public interface BlogService {
     void deleteBlog(Long id);
 
     List<Blog> listRecommendTop(Integer size);
+
+
 
 }

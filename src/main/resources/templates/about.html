@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<!--导航-->
-		<nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+		<nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
 			<div class="ui container">
 				<div class="ui inverted secondary stackable menu">
 				<h2 class="ui teal header item">ssz</h2>
@@ -34,7 +34,7 @@
 		<br />
 
 		<!--中间内容-->
-		<div class=" m-container-large m-padded-tb-big">
+		<div class=" m-container-large m-padded-tb-big animate fadeIn">
 			<div class="ui container">
 				
 				<div class="ui stackable grid">
@@ -80,7 +80,7 @@
 		<br />
 		<br />
 		<!--底部footer-->
-		<footer class="ui inverted vertical segment ">
+		<footer th:replace="_fragments :: footer" class="ui inverted vertical segment ">
 			<div class="ui  center aligned container">
 				<div class="ui segments">
 					<div class="ui inverted segment ">
@@ -130,9 +130,16 @@
 					
 			</div>
 		</footer>
-		
-	<script src = "https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+		<!--	/*/<th:block th:replace="_fragments :: script">/*/-->
+		<script src = "https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+		<script src="/lib/prism/prism.js"></script>
+		<script src="/lib/tocbot/tocbot.min.js"></script>
+		<script src="/lib/qrcode/qrcode.min.js"></script>
+		<script src="/lib/waypoints/jquery.waypoints.min.js"></script>
+		<!--	/*/</th:block>/*/-->
 	<script>
 		$('.menu.toggle').click(function(){
 			$('.m-item').toggleClass('m-mobile-hide');

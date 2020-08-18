@@ -19,13 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 /**
  * @author sushuaizhen
@@ -47,6 +42,7 @@ public class BlogServiceImpl implements BlogService {
 
 
 //    博客内容转html
+    @Transactional
     @Override
     public Blog getAndConvert(Long id) {
       Blog blog =  repository.getOne(id);
@@ -57,6 +53,8 @@ public class BlogServiceImpl implements BlogService {
       BeanUtils.copyProperties(blog,blog1);
       String content = blog1.getContent();
       blog1.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+
+      repository.upadateViews(id);
       return blog1;
 
     }
@@ -88,8 +86,34 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+        return repository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                Join join = root.join("tags");
+                return cb.equal(join.get("id"),tagId);
+            }
+        },pageable);
+    }
+
+    @Override
     public Page<Blog> listSearchBlog(String query, Pageable pageable) {
         return repository.findByQuery(query,pageable);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years = repository.findGroupYear();
+        Map<String,List<Blog>> map = new LinkedHashMap<>();
+        for(String year :years){
+            map.put(year,repository.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return repository.count();
     }
 
 

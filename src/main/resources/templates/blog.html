@@ -37,7 +37,7 @@
 		<br />
 
 		<!--中间内容-->
-		<div id="waypoint" class=" m-container-small m-padded-tb-big animate__animated animate__fadeIn">
+		<div id="waypoint" class=" m-container-small m-padded-tb-big animate__animated animate fadeIn">
 			<div class="ui container">
 				<div class="ui top attached segment">
 					<div class="ui  horizontal link list">
@@ -444,28 +444,30 @@ h5,h6{font-size:1em;}
 					</div>
 					
 					<!-- 赞赏 -->
-					<div class="ui center aligned basic segment">
-						<button id="payButton" type="button" class="ui orange basic circular button">赞赏</button>
-					</div>
-					
-					<div class="ui payQR flowing popup  transition hidden">
-						<div class="ui orange basic label">
-							<div class="ui images" style="font-size: inherit !important ;">
-								<div class="image">
-									<img src="/images/p2.jpg"  th:src="@{/images/p2.jpg}" alt="" class="ui rounded bordered image" style="width:120px" />
-									<div>支付宝</div>
-								</div>
-								<div class="image">
-									<img src="/images/p2.jpg"  th:src="@{/images/p2.jpg}" alt="" class="ui rounded bordered image" style="width:120px" />
-									<div>微信</div>
+					<div th:if="${blog.appreciation}">
+						<div class="ui center aligned basic segment">
+							<button id="payButton" type="button" class="ui orange basic circular button">赞赏</button>
+						</div>
+
+						<div class="ui payQR flowing popup  transition hidden">
+							<div class="ui orange basic label">
+								<div class="ui images" style="font-size: inherit !important ;">
+									<div class="image">
+										<img src="/images/p2.jpg"  th:src="@{/images/p2.jpg}" alt="" class="ui rounded bordered image" style="width:120px" />
+										<div>支付宝</div>
+									</div>
+									<div class="image">
+										<img src="/images/p2.jpg"  th:src="@{/images/p2.jpg}" alt="" class="ui rounded bordered image" style="width:120px" />
+										<div>微信</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				
-				<div class="ui attached positive message">
+				<div class="ui attached positive message" th:if="${blog.shareStatement}">
 					<!-- 博客信息 -->
 					<div class="ui middle aligned grid">
 						<div class="eleven wide column">
@@ -482,7 +484,7 @@ h5,h6{font-size:1em;}
 					</div>
 					
 				</div>
-				<div class="ui bottom attached segment">
+				<div class="ui bottom attached segment" th:if="${blog.commentabled}">
 					<!-- 留言区域列表 -->
 					<div id="comment-container"   class="ui teal segment">
 						<div th:fragment="commentList">
@@ -493,7 +495,10 @@ h5,h6{font-size:1em;}
 										<img src="/images/p3.jpg"  th:src="@{${comment.avatar}}">
 									</a>
 									<div class="content">
-										<a class="author" th:text="${comment.nickname}">Matt</a>
+										<a class="author" >
+											<span th:text="${comment.nickname}">Matt</span>
+											<div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}" >博主</div>
+										</a>
 										<div class="metadata">
 											<span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
 										</div>
@@ -502,6 +507,30 @@ h5,h6{font-size:1em;}
 											<a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id} ,data-commentnickname = ${comment.nickname} " onclick="reply(this)">回复</a>
 										</div>
 									</div>
+
+									<div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+										<div class="comment" th:each="reply : ${comment.replyComments}">
+											<a class="avatar">
+												<img src="/images/p3.jpg"  th:src="@{${reply.avatar}}">
+											</a>
+											<div class="content">
+												<a class="author" >
+													<span th:text="${reply.nickname}">小红</span>
+													<div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">博主</div>
+													<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@小白</span>
+												</a>
+												<div class="metadata">
+													<span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+												</div>
+												<div class="text" th:text="${reply.content}">太赞了！ </div>
+												<div class="actions">
+													<a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id} ,data-commentnickname = ${reply.nickname} " onclick="reply(this)">回复</a>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
 								</div>
 
 								<!--/*-->
@@ -556,36 +585,35 @@ h5,h6{font-size:1em;}
 								</div>
 								<!--*/-->
 							</div>
-
 						</div>
-						  <form id="comment-form" class="ui reply form">
-							  <!--两个隐藏域，获取blogid和parentComment.id。通过这两个数据分别 确定回复在哪个博客里，以及它的该评论的父类是否存在，如果存在又是哪个-->
-							  <input type="hidden" name="blog.id" th:value="${blog.id}">
-							  <input type="hidden" name="parentComment.id" value="-1">
-						    <div class="field">
-						      <textarea name="content" placeholder="请输入评论信息.."></textarea>
-						    </div>
-							<div class="fields">
-								<div class="field m-mobile-wide m-margin-bottom-small">
-									<div class="ui left icon input">
-										<i class="user icon"></i>
-										<input type="text" name="nickname" placeholder="姓名" />
-									</div>
-								</div>
-								<div class="field m-mobile-wide m-margin-bottom-small">
-									<div class="ui left icon input">
-										<i class="mail icon"></i>
-										<input type="text" name="email" placeholder="邮箱" />
-									</div>
-								</div>
-								<div class="field m-mobile-wide m-margin-bottom-small">
-									<button  id="comment-btn" type="button" class="ui teal button m-mobile-wide"><i class="icon edit"></i> 回复 </button>
+					</div>
+
+					<div id="comment-form" class="ui reply form">
+						<!--两个隐藏域，获取blogid和parentComment.id。通过这两个数据分别 确定回复在哪个博客里，以及它的该评论的父类是否存在，如果存在又是哪个-->
+						<input type="hidden" name="blog.id" th:value="${blog.id}">
+						<input type="hidden" name="parentComment.id" value="-1">
+						<div class="field">
+							<textarea name="content" placeholder="请输入评论信息.."></textarea>
+						</div>
+						<div class="fields">
+							<div class="field m-mobile-wide m-margin-bottom-small">
+								<div class="ui left icon input">
+									<i class="user icon"></i>
+									<input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}" />
 								</div>
 							</div>
-						  </form>
-
+							<div class="field m-mobile-wide m-margin-bottom-small">
+								<div class="ui left icon input">
+									<i class="mail icon"></i>
+									<input type="text" name="email" placeholder="邮箱"  th:value="${session.user}!=null ? ${session.user.email}" />
+								</div>
+							</div>
+							<div class="field m-mobile-wide m-margin-bottom-small">
+								<button  id="comment-btn" type="button" class="ui teal button m-mobile-wide"><i class="icon edit"></i> 回复 </button>
+							</div>
+						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -665,8 +693,8 @@ h5,h6{font-size:1em;}
 			</div>
 		</footer>
 
-		<!--	/*/<th:block th:replace="_fragments :: script">/*/-->
 
+		<!--	/*/<th:block th:replace="_fragments :: script">/*/-->
 	<script src = "https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
@@ -709,7 +737,7 @@ h5,h6{font-size:1em;}
 			position: 'left center'
 		});
 
-		var serverurl = "localhost:8080"
+		var serverurl = /*[[#{blog.severurl}]]*/"localhost:8080"
 		var url = /*[[@{/blog/{id} (id=${blog.id})}]]*/''
 		var qrcode = new QRCode("qrcode", {
 		    text: serverurl+url,
@@ -763,6 +791,10 @@ h5,h6{font-size:1em;}
 			}
 		});
 
+		$(function (){
+			$("#comment-container").load(/*[[@{/comments/{id}(id = ${blog.id})}]]*/"进入详情页面后请求")
+		});
+
 
 		$('#comment-btn').click(function () {
 			var boo = $('.ui.form').form('validate form');
@@ -783,7 +815,7 @@ h5,h6{font-size:1em;}
 				"email"   : $("[name='email']").val(),
 				"content" : $("[name='content']").val()
 			},function (responseTxt, statusTxt, xhr) {//提交数据之后执行这个方法。比如滚动到消息列表，清除输入框中的数据
-				$(window).scrollTo($('#comment-container'),500);
+				// $(window).scrollTo($('#comment-container'),500);
 				clearContent();
 			});
 		}
@@ -800,7 +832,7 @@ h5,h6{font-size:1em;}
 		function reply(obj) {
 			var commentId = $(obj).data('commentid');
 			var commentNickname = $(obj).data('commentnickname');
-			$("[name='content']").attr("placeholder", "@"+commentnickname).focus();
+			$("[name='content']").attr("placeholder", "@"+commentNickname).focus();
 			$("[name='parentComment.id']").val(commentId);
 			$(window).scrollTo($('#comment-form'),500);
 		}

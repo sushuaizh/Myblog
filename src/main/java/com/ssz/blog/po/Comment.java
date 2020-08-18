@@ -25,11 +25,15 @@ public class Comment {
 
     @ManyToOne
     private Blog blog;
+    //reply表示子集
     @OneToMany(mappedBy = "parentComment")
     private List<Comment> replyComments = new ArrayList<>();
 
     @ManyToOne
     private Comment parentComment;
+
+    private boolean adminComment;
+
     public Comment() {
     }
 
@@ -105,6 +109,14 @@ public class Comment {
         this.blog = blog;
     }
 
+    public boolean isAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(boolean adminComment) {
+        this.adminComment = adminComment;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -117,6 +129,7 @@ public class Comment {
                 ", blog=" + blog +
                 ", replyComments=" + replyComments +
                 ", parentComment=" + parentComment +
+                ", adminComment=" + adminComment +
                 '}';
     }
 }

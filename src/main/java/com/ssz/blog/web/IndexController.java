@@ -55,4 +55,10 @@ public class IndexController {
         System.out.println("=======index=======");
         return "blog";
     }
+
+    @GetMapping("/footer/newBlog")
+    public String newBlog(Model model){
+        model.addAttribute(blogService.listRecommendTop(3));
+        return "_fragments :: newBlogList";
+    }
 }
