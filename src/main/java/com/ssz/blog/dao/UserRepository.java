@@ -1,6 +1,6 @@
 package com.ssz.blog.dao;
 
-import com.ssz.blog.po.User;
+import com.ssz.blog.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

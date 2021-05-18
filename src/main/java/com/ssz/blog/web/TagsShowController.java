@@ -1,10 +1,8 @@
 package com.ssz.blog.web;
 
-import com.ssz.blog.po.Blog;
-import com.ssz.blog.po.Tags;
+import com.ssz.blog.pojo.Tags;
 import com.ssz.blog.service.BlogService;
 import com.ssz.blog.service.TagsService;
-import com.ssz.blog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

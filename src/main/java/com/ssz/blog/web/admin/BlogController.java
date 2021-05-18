@@ -1,8 +1,7 @@
 package com.ssz.blog.web.admin;
 
-import com.ssz.blog.po.Blog;
-import com.ssz.blog.po.User;
-import com.ssz.blog.service.BlogService;
+import com.ssz.blog.pojo.Blog;
+import com.ssz.blog.pojo.User;
 import com.ssz.blog.service.BlogServiceImpl;
 import com.ssz.blog.service.TagsService;
 import com.ssz.blog.service.TypeService;
@@ -27,7 +26,7 @@ import javax.servlet.http.HttpSession;
 public class BlogController {
 
     private static final String LIST = "admin/blogs";
-    private static final String INPUT = "admin/blogs-input";
+    private static final String INPUT = "admin/blogs/input";
     private static final String REDIRECT_LIST = "redirect:/admin/blogs";
 
     @Autowired
@@ -45,7 +44,7 @@ public class BlogController {
                        BlogQuery blog, Model model){
         model.addAttribute("types", typeService.listType());
         model.addAttribute("page" ,blogService.listBlog(blog,pageable));
-        return LIST;
+        return "admin/blogs";
     }
 
     //搜索

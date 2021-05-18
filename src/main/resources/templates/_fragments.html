@@ -58,13 +58,13 @@
                         </div>
                     </div>
                     <div class="three wide column">
-                        <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                        <h4 class="ui inverted header m-text-thin m-text-spaced">友情链接</h4>
                         <div id="newBlog-container">
                             <div class="ui inverted link list" th:fragment="newBlogList">
                                 <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（user story）</a>
                                 <!--                            /*-->
-                                <a href="#" class="item">用户故事（user story）</a>
-                                <a href="#" class="item">用户故事（user story）</a>
+                                <a href="#" class="item">位置一（user story）</a>
+                                <a href="#" class="item">位置二（user story）</a>
                                 <!--                        */-->
                             </div>
                         </div>

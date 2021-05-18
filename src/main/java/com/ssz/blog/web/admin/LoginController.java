@@ -1,6 +1,6 @@
 package com.ssz.blog.web.admin;
 
-import com.ssz.blog.po.User;
+import com.ssz.blog.pojo.User;
 import com.ssz.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

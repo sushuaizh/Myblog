@@ -3,8 +3,8 @@ package com.ssz.blog.service;
 import com.ssz.blog.NotFoundException;
 import com.ssz.blog.dao.BlogRepository;
 import com.ssz.blog.dao.TypeRepository;
-import com.ssz.blog.po.Blog;
-import com.ssz.blog.po.Type;
+import com.ssz.blog.pojo.Blog;
+import com.ssz.blog.pojo.Type;
 import com.ssz.blog.util.MarkdownUtils;
 import com.ssz.blog.util.MyBeanUtils;
 import com.ssz.blog.vo.BlogQuery;
@@ -17,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yaml.snakeyaml.error.Mark;
 
 import javax.persistence.criteria.*;
 import java.util.*;

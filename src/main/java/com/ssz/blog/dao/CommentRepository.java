@@ -1,6 +1,6 @@
 package com.ssz.blog.dao;
 
-import com.ssz.blog.po.Comment;
+import com.ssz.blog.pojo.Comment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

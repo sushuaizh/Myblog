@@ -1,7 +1,7 @@
 package com.ssz.blog.web;
 
-import com.ssz.blog.po.Comment;
-import com.ssz.blog.po.User;
+import com.ssz.blog.pojo.Comment;
+import com.ssz.blog.pojo.User;
 import com.ssz.blog.service.BlogService;
 import com.ssz.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;

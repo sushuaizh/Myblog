@@ -1,6 +1,4 @@
-package com.ssz.blog.po;
-
-import sun.security.krb5.internal.ccache.Tag;
+package com.ssz.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;

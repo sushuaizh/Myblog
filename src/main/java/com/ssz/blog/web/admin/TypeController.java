@@ -1,7 +1,6 @@
 package com.ssz.blog.web.admin;
 
-import com.ssz.blog.dao.TypeRepository;
-import com.ssz.blog.po.Type;
+import com.ssz.blog.pojo.Type;
 import com.ssz.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

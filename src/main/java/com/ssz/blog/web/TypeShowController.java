@@ -1,6 +1,6 @@
 package com.ssz.blog.web;
 
-import com.ssz.blog.po.Type;
+import com.ssz.blog.pojo.Type;
 import com.ssz.blog.service.BlogService;
 import com.ssz.blog.service.TypeService;
 import com.ssz.blog.vo.BlogQuery;

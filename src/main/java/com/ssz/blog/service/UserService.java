@@ -1,6 +1,6 @@
 package com.ssz.blog.service;
 
-import com.ssz.blog.po.User;
+import com.ssz.blog.pojo.User;
 
 /**
  * @author sushuaizhen

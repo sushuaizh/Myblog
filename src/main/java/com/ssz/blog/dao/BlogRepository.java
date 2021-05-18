@@ -1,6 +1,6 @@
 package com.ssz.blog.dao;
 
-import com.ssz.blog.po.Blog;
+import com.ssz.blog.pojo.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

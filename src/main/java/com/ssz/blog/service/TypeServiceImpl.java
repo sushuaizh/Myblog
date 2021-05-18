@@ -2,7 +2,7 @@ package com.ssz.blog.service;
 
 import com.ssz.blog.NotFoundException;
 import com.ssz.blog.dao.TypeRepository;
-import com.ssz.blog.po.Type;
+import com.ssz.blog.pojo.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

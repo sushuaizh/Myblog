@@ -1,10 +1,8 @@
 package com.ssz.blog.service;
 
-import com.ssz.blog.po.Blog;
-import com.ssz.blog.po.Type;
+import com.ssz.blog.pojo.Blog;
 import com.ssz.blog.vo.BlogQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

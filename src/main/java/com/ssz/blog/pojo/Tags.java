@@ -1,4 +1,4 @@
-package com.ssz.blog.po;
+package com.ssz.blog.pojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,20 +10,19 @@ import java.util.List;
  * @date 2020/7/25
  */
 @Entity
-@Table(name="t_type")
-public class Type {
+@Table(name = "t_tag")
+public class Tags {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    @NotBlank(message = "分类名称不能为空")
+    @NotBlank(message = "标签名称不能为空")
     private String name;
 
-    @OneToMany(mappedBy = "type")
+    @ManyToMany(mappedBy = "tags")
     private List<Blog> blogs = new ArrayList<>();
 
-    public Type() {
+    public Tags() {
     }
 
     public Long getId() {
@@ -52,7 +51,7 @@ public class Type {
 
     @Override
     public String toString() {
-        return "Type{" +
+        return "Tag{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

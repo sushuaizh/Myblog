@@ -1,4 +1,4 @@
-package com.ssz.blog.po;
+package com.ssz.blog.pojo;
 
 import javax.persistence.*;
 import java.util.ArrayList;

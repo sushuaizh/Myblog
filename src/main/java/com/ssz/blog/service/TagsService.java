@@ -1,6 +1,6 @@
 package com.ssz.blog.service;
 
-import com.ssz.blog.po.Tags;
+import com.ssz.blog.pojo.Tags;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

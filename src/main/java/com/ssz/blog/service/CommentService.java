@@ -1,6 +1,6 @@
 package com.ssz.blog.service;
 
-import com.ssz.blog.po.Comment;
+import com.ssz.blog.pojo.Comment;
 
 import java.util.List;
 

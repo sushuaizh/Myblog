@@ -1,6 +1,6 @@
 package com.ssz.blog.web.admin;
 
-import com.ssz.blog.po.Tags;
+import com.ssz.blog.pojo.Tags;
 import com.ssz.blog.service.TagsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
