@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml http://www.thymeleaf.org/">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml http://www.thymeleaf.org/"
+      xmlns="http://www.w3.org/1999/html">
 <head th:fragment="head(title)">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
@@ -17,12 +18,13 @@
 <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini .m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">ssz</h2>
+            <h2 class="ui teal header item">Simple Blog</h2>
             <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1}? 'active'"><i class=" home icon"></i>首页</a>
             <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class=" idea icon"></i>分类</a>
             <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
             <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>归档</a>
-            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>
+<!--            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>-->
+            <a href="#" th:href="@{/admin}" class="m-item item m-mobile-hide" > <i class="sign-in icon"></i>注册登录</a>
 
             <div class="right m-item item m-mobile-hide">
                 <form name="search" action="#" th:action="@{/search}" target="_blank" method="post">
@@ -63,8 +65,8 @@
                             <div class="ui inverted link list" th:fragment="newBlogList">
                                 <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newblogs}" th:text="${blog.title}">用户故事（user story）</a>
                                 <!--                            /*-->
-                                <a href="#" class="item">位置一（user story）</a>
-                                <a href="#" class="item">位置二（user story）</a>
+                                <a href="http://www.baidu.com" class="item">百度</a>
+                                <a href="https://blog.csdn.net/" class="item">csdn</a>
                                 <!--                        */-->
                             </div>
                         </div>
@@ -80,7 +82,7 @@
                     </div>
                     <div class="seven wide column">
                         <h4 class="ui inverted header m-text-thin m-text-spaced">Blog</h4>
-                        <p class="m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.blogDescription}">欢迎大家来到我的博客，请大家多多留言分享</p>
+                        <p class="m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.blogDescription}"></p>
                     </div>
                 </div>
             </div>
@@ -90,7 +92,7 @@
             </div>
 
             <div class="ui inverted center aligned segment m-padded-tb-minix">
-                <p class=" m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.record}"> 啊打发都发订单发货的法国的分公司 发生过生地</p>
+                <p class=" m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.record}"></p>
             </div>
         </div>
     </div>

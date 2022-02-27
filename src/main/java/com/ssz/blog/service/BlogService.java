@@ -1,6 +1,7 @@
 package com.ssz.blog.service;
 
 import com.ssz.blog.pojo.Blog;
+import com.ssz.blog.pojo.User;
 import com.ssz.blog.vo.BlogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,8 @@ public interface BlogService {
     void deleteBlog(Long id);
 
     List<Blog> listRecommendTop(Integer size);
+
+    Page<Blog> listBlogByUser(BlogQuery blogQuery, Pageable pageable, User user);
 
 
 

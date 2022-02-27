@@ -18,10 +18,17 @@
 <nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">管理后台</h2>
-            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1}? 'active'"><i class=" home icon"></i>博客</a>
+            <h2 class="ui teal header item">Simple Blog</h2>
+            <a href="#" th:href="@{/admin/index_main}" class="m-item item m-mobile-hide" th:classappend="${n==1}? 'active'"><i class=" home icon"></i>首页</a>
+            <a href="#" th:href="@{/admin/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class=" idea icon"></i>分类</a>
+            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>归档</a>
+            <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==5}? 'active'"><i class=" home icon"></i>博客</a>
+<!--
             <a href="#" th:href="@{/admin/type}" class="m-item item m-mobile-hide" th:classappend="${n==2}? 'active'"><i class=" idea icon"></i>分类</a>
-            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3}? 'active'"><i class=" tags icon"></i>标签</a>
+-->
+            <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==6}? 'active'"><i class=" tags icon"></i>标签管理</a>
+            <a href="#" th:href="@{/admin/about}" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i class=" info icon"></i>关于我</a>
             <div class="right m-item m-mobile-hide menu">
                 <div class="ui dropdown item">
                     <div class="text">
@@ -91,7 +98,7 @@
             </div>
 
             <div class="ui inverted center aligned segment m-padded-tb-minix">
-                <p class=" m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.record}"> 啊打发都发订单发货的法国的分公司 发生过生地</p>
+                <p class=" m-text-thin m-text-spaced m-opacity-tiny" th:text="#{index.record}"></p>
             </div>
         </div>
     </div>

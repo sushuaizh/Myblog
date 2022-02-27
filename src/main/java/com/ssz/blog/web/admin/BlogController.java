@@ -2,6 +2,7 @@ package com.ssz.blog.web.admin;
 
 import com.ssz.blog.pojo.Blog;
 import com.ssz.blog.pojo.User;
+import com.ssz.blog.service.BlogService;
 import com.ssz.blog.service.BlogServiceImpl;
 import com.ssz.blog.service.TagsService;
 import com.ssz.blog.service.TypeService;
@@ -30,7 +31,7 @@ public class BlogController {
     private static final String REDIRECT_LIST = "redirect:/admin/blogs";
 
     @Autowired
-    private BlogServiceImpl blogService;
+    private BlogService blogService;
 
     @Autowired
     private TypeService typeService;
@@ -41,9 +42,10 @@ public class BlogController {
     //首页博客跳转
     @GetMapping("/blogs")
     public String blog(@PageableDefault(size = 5, sort = "updateTime", direction = Sort.Direction.DESC) Pageable pageable,
-                       BlogQuery blog, Model model){
+                       BlogQuery blog, Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
         model.addAttribute("types", typeService.listType());
-        model.addAttribute("page" ,blogService.listBlog(blog,pageable));
+        model.addAttribute("page" ,blogService.listBlogByUser(blog,pageable,user));
         return "admin/blogs";
     }
 
@@ -61,7 +63,7 @@ public class BlogController {
     public String input(Model model){
         setTypeAndTags(model);
         model.addAttribute("blog",new Blog());
-        return INPUT;
+        return "admin/blogs-input";
     }
 
     private void setTypeAndTags(Model model){
@@ -76,7 +78,7 @@ public class BlogController {
         Blog blog = blogService.getBlog(id);
         blog.init();
         model.addAttribute("blog", blogService.getBlog(id));
-        return INPUT;
+        return "admin/blogs-input";
     }
 
     //新增和编辑里的发布和保存

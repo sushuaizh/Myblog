@@ -1,7 +1,10 @@
 package com.ssz.blog.web.admin;
 
 import com.ssz.blog.pojo.Type;
+import com.ssz.blog.service.BlogService;
+import com.ssz.blog.service.TagsService;
 import com.ssz.blog.service.TypeService;
+import com.ssz.blog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author sushuaizhen
@@ -27,6 +31,9 @@ public class TypeController {
 
     @Autowired
     private TypeService typeService;
+
+    @Autowired
+    private BlogService blogService;
 
     @GetMapping("/type")
     public String type(@PageableDefault(size = 10 , sort = {"id"} , direction = Sort.Direction.DESC)
@@ -91,5 +98,20 @@ public class TypeController {
         typeService.deleteType(id);
         attributes.addFlashAttribute("message", "删除成功");
         return "redirect:/admin/type";
+    }
+
+    @GetMapping("/types/{id}")
+    public String types(@PageableDefault(size = 8, sort = "updateTime",direction = Sort.Direction.DESC) Pageable pageable,
+                        @PathVariable Long id, Model model){
+        List<Type> typeList = typeService.listTop(10000);
+        if(id == -1){
+            id = typeList.get(0).getId();
+        }
+        BlogQuery blogQuery = new BlogQuery();
+        blogQuery.setTypeId(id);
+        model.addAttribute("types",typeList);
+        model.addAttribute("blogs",blogService.listBlog(blogQuery,pageable));
+        model.addAttribute("activeTypeId",id);
+        return "admin/types";
     }
 }

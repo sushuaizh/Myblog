@@ -5,6 +5,7 @@ import com.ssz.blog.dao.BlogRepository;
 import com.ssz.blog.dao.TypeRepository;
 import com.ssz.blog.pojo.Blog;
 import com.ssz.blog.pojo.Type;
+import com.ssz.blog.pojo.User;
 import com.ssz.blog.util.MarkdownUtils;
 import com.ssz.blog.util.MyBeanUtils;
 import com.ssz.blog.vo.BlogQuery;
@@ -154,5 +155,29 @@ public class BlogServiceImpl implements BlogService {
     public List<Blog> listRecommendTop(Integer size) {
         Pageable pageable = PageRequest.of(0,size, Sort.by(Sort.Direction.DESC,"updateTime"));
         return repository.findRecommendTop(pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlogByUser(BlogQuery blogQuery, Pageable pageable, User user) {
+        return repository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                ArrayList<Predicate> predicates = new ArrayList<>();
+                if(!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null){
+                    predicates.add(cb.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if(blogQuery.getTypeId() != null){
+                    predicates.add(cb.equal(root.<Type>get("type").get("id"),blogQuery.getTypeId()));
+                }
+                if(blogQuery.isRecommend()){
+                    boolean recommend = predicates.add(cb.equal(root.<Boolean>get("recommend"), blogQuery.isRecommend()));
+                }
+                if (user != null ){
+                    predicates.add(cb.equal(root.get("user").get("id"),user.getId()));
+                }
+                cq.where(predicates.toArray(new Predicate[predicates.size()]));
+                return null;
+            }
+        },pageable);
     }
 }

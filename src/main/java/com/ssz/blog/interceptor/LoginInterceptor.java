@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-    @Override
+   /* @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
@@ -20,5 +20,5 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
         return true;
-    }
+    }*/
 }
