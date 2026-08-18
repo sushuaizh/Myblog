@@ -33,6 +33,58 @@
 | 前端 | Semantic UI、jQuery、Editor.md、Prism、tocbot |
 | 构建 | Maven、Java 8 |
 
+## 技术架构
+
+整体是经典的 **浏览器 → Spring MVC → Service → JPA → MySQL** 分层，前后台共用同一套业务与数据。
+
+```mermaid
+flowchart TB
+    subgraph Client["表现层 / 浏览器"]
+        direction LR
+        UI["Semantic UI + jQuery"]
+        ED["Editor.md"]
+        PR["Prism 代码高亮"]
+        TOC["tocbot 目录"]
+        TH["Thymeleaf 模板"]
+    end
+
+    subgraph Web["Web 层 / Spring MVC"]
+        direction TB
+        Front["前台 Controller<br/>首页 / 分类 / 标签 / 归档 / 关于 / 评论"]
+        Admin["后台 Controller /admin<br/>登录 / 博客 / 分类 / 标签"]
+        Cross["LoginInterceptor · LogAspect · ExceptionHandler · i18n"]
+        Front --- Admin
+        Front --- Cross
+        Admin --- Cross
+    end
+
+    subgraph Svc["业务层 / Service"]
+        direction LR
+        BS["BlogService"]
+        TS["TypeService"]
+        TGS["TagsService"]
+        CS["CommentService"]
+        US["UserService"]
+        Util["MarkdownUtils CommonMark<br/>MD5Utils · Hibernate Validator"]
+    end
+
+    subgraph Dao["持久层"]
+        JPA["Spring Data JPA / Hibernate"]
+        Repo["Blog / Type / Tags / Comment / User Repository"]
+    end
+
+    subgraph DB["数据层"]
+        MySQL[("MySQL · myblog<br/>t_blog · t_type · t_tag · t_comment · t_user")]
+    end
+
+    Client -->|"HTTP / Session"| Web
+    Web --> Svc
+    Svc --> Dao
+    Dao --> DB
+```
+
+运行时由 **Spring Boot 2.3.1 + Java 8 + Maven** 组装：`dev` 默认 `8080`，`pro` 为 `8081`。
+
 ## 项目结构
 
 ```
